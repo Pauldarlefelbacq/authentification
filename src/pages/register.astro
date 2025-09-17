@@ -1,4 +1,3 @@
-
 <html>
   <body>
     <h1>Inscription</h1>
@@ -27,14 +26,14 @@
             password,
             passwordConfirm
           });
-          // login direct après inscription
-          await pb.collection("users").authWithPassword(email, password);
-          location.href = "/students";
-        } catch (err) {
-          document.getElementById("msg").textContent = "Échec de l'inscription";
-          console.error(err);
-        }
-      };
+          // envoi email de vérification
+          await pb.collection("users").requestVerification(email);
+          document.getElementById("msg").textContent =
+            "Inscription réussie, vérifiez vos emails";
+          }  catch (err) {
+      document.getElementById("msg").textContent =
+        "Erreur: " + (err?.message || "Impossible de s'inscrire");
+    }};
     </script>
   </body>
 </html>
