@@ -31,6 +31,11 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22004
+          script : |
+            cd /var/www/authentification/pb_public
+            npm ci
+            npm install send server-destroy
+            PORT=1234 pm2 start -f entry.mjs
           source: "dist/*"
           target: "/var/www/authentification/pb_public"
           strip_components: 1
